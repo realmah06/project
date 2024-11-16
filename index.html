@@ -16,9 +16,15 @@
         body{
             display: flex;
             justify-content: center;
+            background-image: url(Logo.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 700px;
         }
         .login-container{
             width: 500px;
+            background-color: transparent;
+            backdrop-filter: blur(10px);
             margin-top: 50px;
             padding: 10px;
         }
@@ -45,7 +51,7 @@
             padding: 7px 10px;
             font-size: 18px;
             width: 100%;
-            margin-left: 5px;
+            margin-left: 10px;
             outline: none;
             border-radius: 4px;
             border: 1px solid #ddd;
@@ -78,5 +84,74 @@
             </div>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(e){
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if(username === "Admin" && password === "Admin"){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Login to Site?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonText: 'Discard',
+                confirmButtonText: 'Login'
+            }).then((result => {
+                if(result.isConfirmed){
+                    Swal.fire({
+                        title: 'Loading...---...!',
+                        html: 'Please wait while we process your request.',
+                        didOpen: () => {
+                            Swal.showLoading();
+                          },
+                        allowOutsideClick: false, 
+                        allowEscapeKey: false,  
+                    })
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Completed!',
+                            text: 'You have been successfully logged in.',
+                        }).then(() => {
+                            window.location.href = "dashboard.html";
+                        });
+                    }, 3000);
+                }
+            }))
+        } else{
+            Swal.fire({
+                icon: 'warning',
+                title: 'Login to Site?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonText: 'Discard',
+                confirmButtonText: 'Login'
+            }).then((result => {
+                if(result.isConfirmed){
+                    Swal.fire({
+                        title: 'Loading...---...!',
+                        html: 'Please wait while we process your request.',
+                        didOpen: () => {
+                            Swal.showLoading();
+                          },
+                        allowOutsideClick: false, 
+                        allowEscapeKey: false,  
+                    })
+                    setTimeout(() => {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Incompleted!',
+                          text: 'Your request has been denied!.',
+                        });
+                      }, 3000);
+                }
+            }))
+        }
+    })
+    </script>
 </body>
 </html>
